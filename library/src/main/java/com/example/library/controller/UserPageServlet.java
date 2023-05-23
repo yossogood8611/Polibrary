@@ -6,8 +6,8 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/main-page")
-public class MainPageServlet extends HttpServlet {
+@WebServlet("/user-page")
+public class UserPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // HTML 페이지 생성
         response.setContentType("text/html");

@@ -75,7 +75,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="${pageContext.request.contextPath}/main-page">
+    <a href="${pageContext.request.contextPath}/manager-page">
         <div class="box">
             <h2 class="box-title">관리자 모드</h2>
             <div class="box-item">도서 조회</div>
@@ -83,7 +83,7 @@
             <div class="box-item">도서 폐기</div>
         </div>
     </a>
-    <a href="${pageContext.request.contextPath}/main-page">
+    <a href="${pageContext.request.contextPath}/user-page">
         <div class="box">
             <h2 class="box-title">이용자 모드</h2>
             <div class="box-item">도서 조회</div>
