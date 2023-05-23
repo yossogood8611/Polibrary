@@ -37,6 +37,6 @@ public class BookUpdateOkServlet extends HttpServlet {
         }
 
         HttpServletResponse response = (HttpServletResponse) resp;
-        response.sendRedirect("/"); // 리다이렉트할 경로를 적절히 수정해주세요
+        response.sendRedirect("/checkBookList?mode=1&sort=null&searchInput=null");
     }
 }

@@ -13,9 +13,11 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "bookUpdateServlet", value = "/book-update")
-public class BookUpdateServlet extends HttpServlet {
+@WebServlet(name = "bookDeleteServlet", value = "/book-delete")
+public class BookDeleteServlet extends HttpServlet {
+
     BookRepository bookRepository = new BookRepository();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,15 +58,15 @@ public class BookUpdateServlet extends HttpServlet {
             out.println("    color: inherit;");
             out.println("}");
 
-            out.println(".update-button {");
+            out.println(".delete-button {");
             out.println("    color: white;");
-            out.println("    background-color: blue;");
+            out.println("    background-color: red;");
             out.println("    padding: 5px 10px;");
             out.println("    border-radius: 4px;");
             out.println("    text-decoration: none;");
             out.println("}");
-            out.println(".update-button:hover {");
-            out.println("    background-color: darkblue;");
+            out.println(".delete-button:hover {");
+            out.println("    background-color: darkred;");
             out.println("}");
 
             out.println("</style>");
@@ -90,7 +92,7 @@ public class BookUpdateServlet extends HttpServlet {
             }
 
 
-            out.println("<h1>도서 정보 수정</h1>");
+            out.println("<h1>도서 정보 삭제</h1>");
             out.println("<table>");
             out.println("<tr>");
             out.println("<th>ID</th>");
@@ -100,19 +102,19 @@ public class BookUpdateServlet extends HttpServlet {
             out.println("<th>수량</th>");
             out.println("<th>장르</th>");
             out.println("<th>출판사</th>");
-            out.println("<th>수정</th>");
+            out.println("<th>폐기</th>");
             out.println("</tr>");
 
             for (Book book : bookList) {
                 out.println("<tr>");
-                out.println("<td><a href=book-detail?id=" + book.getId() + ">" + book.getId() + "</a></td>");
+                out.println("<td>" + book.getId() + "</td>");
                 out.println("<td>" + book.getName() + "</td>");
                 out.println("<td>" + book.getAuthor() + "</td>");
                 out.println("<td>" + book.getPrice() + "</td>");
                 out.println("<td>" + book.getAmount() + "</td>");
                 out.println("<td>" + book.getGenre() + "</td>");
                 out.println("<td>" + book.getPublisher() + "</td>");
-                out.println("<td><a href='book-detail?id=" + book.getId() + "' class='update-button'>수정</a></td>");
+                out.println("<td><a href='book-delete-ok?id=" + book.getId() + "' onclick='return confirm(\"정말로 삭제하시겠습니까?\")' class='delete-button'>삭제</a></td>");
                 out.println("</tr>");
             }
 
