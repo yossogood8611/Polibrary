@@ -34,6 +34,29 @@ public class BookRepository {
         System.out.println("저장 완료");
     }
 
+    //책 단건 조회
+    public Book selectById(Long bookId) throws SQLException {
+        String sql = "SELECT * FROM book WHERE Id = " + bookId;
+
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery(sql);
+
+        //SQL 결과 처리
+        while(rs.next()) {
+            Long id = rs.getLong("Id");
+            String name = rs.getString("name");
+            String author = rs.getString("author");
+            int price = rs.getInt("price");
+            int amount = rs.getInt("amount");
+            String genre = rs.getString("genre");
+            String publisher = rs.getString("publisher");
+
+            return new Book(id, name, author, price, amount, genre, publisher);
+        }
+
+        return null;
+    }
+
     //책 전체 조회
     //ASC, DESC, null
     public ArrayList<Book> selectList(String orderBy) throws SQLException {
@@ -118,6 +141,50 @@ public class BookRepository {
 
         return list;
     }
+
+
+    // 책 제목, 저자 조건으로 조회
+    public ArrayList<Book> selectByBookNameAndAuthor(String bookName, String author) throws SQLException {
+        String sql = "SELECT * FROM book WHERE ";
+        boolean isConditionAdded = false;
+
+        if (bookName != null && !bookName.isEmpty()) {
+            sql += "name LIKE '%" + bookName + "%'";
+            isConditionAdded = true;
+        }
+
+        if (author != null && !author.isEmpty()) {
+            if (isConditionAdded) {
+                sql += " AND ";
+            }
+            sql += "author LIKE '%" + author + "%'";
+        }
+
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+
+        ArrayList<Book> list = new ArrayList<>(); // 결과 데이터를 담을 리스트
+
+        // SQL 결과 처리
+        while (rs.next()) {
+            Long id = rs.getLong("Id");
+            String name = rs.getString("name");
+            String bookAuthor = rs.getString("author");
+            int price = rs.getInt("price");
+            int amount = rs.getInt("amount");
+            String genre = rs.getString("genre");
+            String publisher = rs.getString("publisher");
+
+            Book findBook = new Book(id, name, bookAuthor, price, amount, genre, publisher);
+
+            list.add(findBook);
+        }
+
+        return list;
+    }
+
+
+
 
     //도서 수량+1
     public void plusAmount(Long bookId) throws SQLException {

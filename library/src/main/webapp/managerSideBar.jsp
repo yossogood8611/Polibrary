@@ -2,7 +2,7 @@
 <div class="sidebar">
     <ul>
         <li><a href="checkBookList">도서 조회</a></li>
-        <li>도서 입고</li>
+        <li><a href="insert.html">도서 입고</a></li>
         <li>도서 수정</li>
         <li>도서 폐기</li>
     </ul>
