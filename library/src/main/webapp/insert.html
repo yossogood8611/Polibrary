@@ -10,14 +10,19 @@
 
     <style type="text/css">
 
-        #regbox{
-            width : 300px;
+        #regbox {
+            width: 300px;
         }
 
-        #regbox label{
-            display : block;
-            width: 100px;
-            float : left;
+        #regbox label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        #regbox input[type="text"] {
+            width: 150px;
         }
 
     </style>
@@ -29,17 +34,17 @@
 
     <fieldset id="regbox">
         <legend>책 입고</legend>
-        <label for="name">책 이름</label>
+        <label for="name">책 이름:</label>
         <input type="text" name="name"/><br/>
-        <label for="author">작가</label>
+        <label for="author">작가:</label>
         <input type="text" name="author"/><br/>
-        <label for="price">가격</label>
+        <label for="price">가격:</label>
         <input type="text" name="price"/><br/>
-        <label for="amount">수량</label>
+        <label for="amount">수량:</label>
         <input type="text" name="amount"/><br/>
-        <label for="genre">장르</label>
+        <label for="genre">장르:</label>
         <input type="text" name="genre"/><br/>
-        <label for="publisher">출판사</label>
+        <label for="publisher">출판사:</label>
         <input type="text" name="publisher"/><br/>
         <input type="submit" value="가입">
         <input type="reset" value="취소"/>
