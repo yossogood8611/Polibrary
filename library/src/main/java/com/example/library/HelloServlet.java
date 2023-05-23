@@ -1,6 +1,10 @@
 package com.example.library;
 
+import com.example.library.domain.Book;
+import com.example.library.repository.BookRepository;
+
 import java.io.*;
+import java.sql.SQLException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -12,8 +16,21 @@ public class HelloServlet extends HttpServlet {
         message = "Hello World!";
     }
 
+
+
+
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
+
+        BookRepository bookRepository = new BookRepository();
+
+        Book book = new Book("책3", "저자3", 3000, 3, "장르3", "출판사3");
+        try {
+            bookRepository.saveBook(book);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // Hello
         PrintWriter out = response.getWriter();
