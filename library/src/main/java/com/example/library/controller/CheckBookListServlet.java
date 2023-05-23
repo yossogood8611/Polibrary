@@ -20,11 +20,25 @@ public class CheckBookListServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String mode = request.getParameter("mode");
+        String searchInput = request.getParameter("searchInput");
+        String sortMode = request.getParameter("sort");
 
+        String contextPath = request.getContextPath();
+        String searchURL = contextPath + "/checkBookList?mode=" + mode + "&sort=null&searchInput=null";
+        String ascendingURL = contextPath + "/checkBookList?mode=" + mode + "&sort=ASC&searchInput=" + searchInput;
+        String descendingURL = contextPath + "/checkBookList?mode=" + mode + "&sort=DESC&searchInput=" + searchInput;
+
+        System.out.println(mode + " " + searchInput + " " + sortMode);
         // 데이터 가져오기
         BookRepository bookRepository = new BookRepository();
         try {
-            ArrayList<Book> bookList = bookRepository.selectList(null); // Book 목록 가져오기
+            ArrayList<Book> bookList = bookRepository.selectList(sortMode);
+
+            if (searchInput != null && !searchInput.isEmpty()) {
+                //bookList = bookRepository.selectByBookAuthorName(searchInput);
+            } else {
+
+            }
 
             // Book 데이터를 테이블로 출력하는 HTML 코드 작성
             out.println("<html>");
@@ -34,6 +48,12 @@ public class CheckBookListServlet extends HttpServlet {
             out.println("table {");
             out.println("  width: 100%;");
             out.println("  border-collapse: collapse;");
+            out.println("}");
+
+            out.println(".row {");
+            out.println("  display: flex;");
+            out.println("  flex-direction : row;");
+            out.println("  justify-content: space-between;");
             out.println("}");
 
             out.println("th, td {");
@@ -53,6 +73,7 @@ public class CheckBookListServlet extends HttpServlet {
             out.println("a:hover {");
             out.println("    color: inherit;");
             out.println("}");
+
 
             out.println("</style>");
             out.println("</head>");
@@ -76,8 +97,21 @@ public class CheckBookListServlet extends HttpServlet {
                 request.getRequestDispatcher("userSideBar.jsp").include(request, response);
             }
 
-
             out.println("<h1>Book List</h1>");
+            out.println("<div class=\"row\">");
+            out.println("<div>");
+            out.println("<form>");
+            out.println("  <input type=\"text\" name=\"searchInput\" placeholder=\"검색어 입력\">");
+            out.println("  <a href=\"" + searchURL + "\"><button type=\"submit\">검색하기</button></a>");
+            out.println("</form>");
+            out.println("</div>");
+
+            out.println("<div>");
+            out.println("  <a href=\"" + ascendingURL + "\"><button type=\"button\">오름차순</button></a>");
+            out.println("  <a href=\"" + descendingURL + "\"><button type=\"button\">내림차순</button></a>");
+            out.println("</div>");
+            out.println("</div>");
+
             out.println("<table>");
             out.println("<tr>");
             out.println("<th>ID</th>");
