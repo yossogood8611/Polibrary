@@ -26,7 +26,7 @@ public class DBConnection {
     public Connection getConnection() {
         // 1.드라이버 로딩
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println(" !! <JDBC 오류> Driver load 오류: " + e.getMessage());
             e.printStackTrace();

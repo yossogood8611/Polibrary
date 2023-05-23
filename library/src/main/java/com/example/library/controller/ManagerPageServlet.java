@@ -94,6 +94,7 @@ public class ManagerPageServlet extends HttpServlet {
         out.println("<div class=\"sidebar\">");
         out.println("<ul>");
         out.println("<li>도서 조회</li>");
+        out.println("<li><a href=\"insert.html\">도서 입고</a></li>");
         out.println("<li>도서 구매/판매</li>");
         out.println("<li>도서 대여/반납</li>");
         out.println("</ul>");

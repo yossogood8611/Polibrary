@@ -43,7 +43,7 @@
             position: absolute;
             left: calc(50% - 50%);
             width: calc(100%);
-            bottom:-10px;
+            bottom: -10px;
             border-bottom: 1px solid black;
         }
 
@@ -67,6 +67,7 @@
             text-decoration: none; /* 밑줄 제거 */
             color: inherit; /* 상위 요소의 색상 상속 */
         }
+
         a:hover {
             color: inherit; /* 상위 요소의 색상 상속 */
         }
@@ -74,7 +75,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="${pageContext.request.contextPath}/main-page">
+    <a href="${pageContext.request.contextPath}/manager-page">
         <div class="box">
             <h2 class="box-title">관리자 모드</h2>
             <div class="box-item">도서 조회</div>
@@ -82,13 +83,15 @@
             <div class="box-item">도서 폐기</div>
         </div>
     </a>
-    <div class="box">
-        <h2 class="box-title">이용자 모드</h2>
-        <div class="box-item">도서 조회</div>
-        <div class="box-item">도서 구매/판매</div>
-        <div class="box-item">도서 대여/반납</div>
-        <div class="box-item">새로 입고된 책 보기</div>
-    </div>
+    <a href="${pageContext.request.contextPath}/user-page">
+        <div class="box">
+            <h2 class="box-title">이용자 모드</h2>
+            <div class="box-item">도서 조회</div>
+            <div class="box-item">도서 구매/판매</div>
+            <div class="box-item">도서 대여/반납</div>
+            <div class="box-item">새로 입고된 책 보기</div>
+        </div>
+    </a>
 </div>
 </body>
 </html>

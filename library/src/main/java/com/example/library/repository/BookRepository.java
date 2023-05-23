@@ -34,6 +34,29 @@ public class BookRepository {
         System.out.println("저장 완료");
     }
 
+    //책 단건 조회
+    public Book selectById(Long bookId) throws SQLException {
+        String sql = "SELECT * FROM book WHERE Id = " + bookId;
+
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery(sql);
+
+        //SQL 결과 처리
+        while(rs.next()) {
+            Long id = rs.getLong("Id");
+            String name = rs.getString("name");
+            String author = rs.getString("author");
+            int price = rs.getInt("price");
+            int amount = rs.getInt("amount");
+            String genre = rs.getString("genre");
+            String publisher = rs.getString("publisher");
+
+            return new Book(id, name, author, price, amount, genre, publisher);
+        }
+
+        return null;
+    }
+
     //책 전체 조회
     //ASC, DESC, null
     public ArrayList<Book> selectList(String orderBy) throws SQLException {
