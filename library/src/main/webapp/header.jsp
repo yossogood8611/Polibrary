@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="header">
-    <div class="logo">Polibrary</div>
+    <div class="logo"><a href="/">Polibrary</a></div>
     <div class="menu-button" onclick="toggleMenu()">
         <div class="menu-button-item"></div>
         <div class="menu-button-item"></div>
