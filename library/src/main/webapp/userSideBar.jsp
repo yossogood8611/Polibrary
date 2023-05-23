@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div class="sidebar">
     <ul>
-        <li><a href="checkBookList">도서 조회</a></li>
+        <li><a href="${pageContext.request.contextPath}/checkBookList?mode=2&sort=null&searchInput=null&searchMode=0">도서 조회</a></li>
         <li>도서 대여/반납</li>
     </ul>
 </div>

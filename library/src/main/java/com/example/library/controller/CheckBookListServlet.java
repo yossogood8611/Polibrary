@@ -22,22 +22,27 @@ public class CheckBookListServlet extends HttpServlet {
         String mode = request.getParameter("mode");
         String searchInput = request.getParameter("searchInput");
         String sortMode = request.getParameter("sort");
+        String searchMode = request.getParameter("searchMode");
 
         String contextPath = request.getContextPath();
-        String searchURL = contextPath + "/checkBookList?mode=" + mode + "&sort=null&searchInput=null";
-        String ascendingURL = contextPath + "/checkBookList?mode=" + mode + "&sort=ASC&searchInput=" + searchInput;
-        String descendingURL = contextPath + "/checkBookList?mode=" + mode + "&sort=DESC&searchInput=" + searchInput;
+        String searchBookNameURL = contextPath + "/checkBookList?mode=" + mode + "&sort=null&searchInput="+ searchInput + "&searchMode=" + searchMode ;
+        String searchAuthorURL = contextPath + "/checkBookList?mode=" + mode + "&sort=null&searchInput="+ searchInput + "&searchMode=" + searchMode;
+        String ascendingURL = contextPath + "/checkBookList?mode=" + mode + "&sort=ASC&searchInput=" + searchInput + "&searchMode=" + searchMode;
+        String descendingURL = contextPath + "/checkBookList?mode=" + mode + "&sort=DESC&searchInput=" + searchInput + "&searchMode=" + searchMode;
 
-        System.out.println(mode + " " + searchInput + " " + sortMode);
+        System.out.println(mode + " " + searchInput + " " + sortMode +" "+ searchMode);
         // 데이터 가져오기
         BookRepository bookRepository = new BookRepository();
         try {
             ArrayList<Book> bookList = bookRepository.selectList(sortMode);
 
             if (searchInput != null && !searchInput.isEmpty()) {
-                //bookList = bookRepository.selectByBookAuthorName(searchInput);
-            } else {
-
+                if("1".equals(searchMode))
+                bookList = bookRepository.selectByBookName(searchInput);
+            } else if("2".equals(searchMode)){
+                bookList = bookRepository.selectByAuthor(searchInput);
+            }else{
+                bookList = bookRepository.selectList(sortMode);
             }
 
             // Book 데이터를 테이블로 출력하는 HTML 코드 작성
@@ -84,6 +89,15 @@ public class CheckBookListServlet extends HttpServlet {
             out.println("  menuButton.classList.toggle('open');");
             out.println("  sidebar.classList.toggle('open');");
             out.println("}");
+            out.println("function setSearchInput() {");
+            out.println("  var searchInput = document.getElementById('searchInput').value;");
+            out.println("  var searchInputParam = encodeURIComponent(searchInput);");
+            out.println("");
+            out.println("  this.searchInput = searchInputParam;");
+            out.println("}");
+            out.println("function setSearchMode(mode) {");
+            out.println("  this.searchMode = mode;");
+            out.println("}");
             out.println("</script>");
 
             out.println("<body>");
@@ -101,14 +115,15 @@ public class CheckBookListServlet extends HttpServlet {
             out.println("<div class=\"row\">");
             out.println("<div>");
             out.println("<form>");
-            out.println("  <input type=\"text\" name=\"searchInput\" placeholder=\"검색어 입력\">");
-            out.println("  <a href=\"" + searchURL + "\"><button type=\"submit\">검색하기</button></a>");
+            out.println("<input type=\"text\" name=\"searchInput\" id=\"searchInput\" placeholder=\"검색어 입력\">");
+            out.println("  <a href=\"" + searchBookNameURL + "\"><button onClick=\"setSearchMode(1); setSearchInput();\" type=\"submit\">제목으로 검색하기</button></a>");
+            out.println("  <a href=\"" + searchAuthorURL + "\"><button onClick=\"setSearchMode(2); setSearchInput();\" type=\"submit\">저자로 검색하기</button></a>");
             out.println("</form>");
             out.println("</div>");
 
             out.println("<div>");
-            out.println("  <a href=\"" + ascendingURL + "\"><button type=\"button\">오름차순</button></a>");
-            out.println("  <a href=\"" + descendingURL + "\"><button type=\"button\">내림차순</button></a>");
+            out.println("  <a href=\"" + ascendingURL + "\"><button onClick=\"setSearchMode(0)\" type=\"button\">오름차순</button></a>");
+            out.println("  <a href=\"" + descendingURL + "\"><button onClick=\"setSearchMode(0)\" type=\"button\">내림차순</button></a>");
             out.println("</div>");
             out.println("</div>");
 

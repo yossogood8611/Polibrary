@@ -21,6 +21,7 @@
             padding: 15px;
             text-align: center;
             transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+            margin-right: 10px;
         }
 
         .box:hover {
@@ -75,7 +76,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="${pageContext.request.contextPath}/checkBookList?mode=1&sort=null&searchInput=null">
+    <a href="${pageContext.request.contextPath}/checkBookList?mode=1&sort=null&searchInput=null&searchMode=0">
         <div class="box">
             <h2 class="box-title">관리자 모드</h2>
             <div class="box-item">도서 조회</div>
@@ -83,7 +84,7 @@
             <div class="box-item">도서 폐기</div>
         </div>
     </a>
-    <a href="${pageContext.request.contextPath}/checkBookList?mode=2&sort=null&searchInput=null">
+    <a href="${pageContext.request.contextPath}/checkBookList?mode=2&sort=null&searchInput=null&searchMode=0">
         <div class="box">
             <h2 class="box-title">이용자 모드</h2>
             <div class="box-item">도서 조회</div>
