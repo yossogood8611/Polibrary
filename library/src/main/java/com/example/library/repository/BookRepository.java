@@ -62,7 +62,7 @@ public class BookRepository {
     public ArrayList<Book> selectList(String orderBy) throws SQLException {
         String sql = "SELECT * FROM book";
 
-        if (orderBy != null) {
+        if (orderBy != null && orderBy.equals("")) {
             sql += " ORDER BY name " + orderBy; // name 필드를 기준으로 정렬
         }
 
