@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "bookUpdateServlet", value = "/book-update")
 public class BookUpdateServlet extends HttpServlet {
+    BookRepository bookRepository = new BookRepository();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,8 +24,7 @@ public class BookUpdateServlet extends HttpServlet {
 
         String mode = request.getParameter("mode");
 
-        // 데이터 가져오기
-        BookRepository bookRepository = new BookRepository();
+
         try {
             ArrayList<Book> bookList = bookRepository.selectList(null); // Book 목록 가져오기
 
@@ -79,7 +79,7 @@ public class BookUpdateServlet extends HttpServlet {
             }
 
 
-            out.println("<h1>Book List</h1>");
+            out.println("<h1>도서 정보 수정</h1>");
             out.println("<table>");
             out.println("<tr>");
             out.println("<th>ID</th>");
@@ -93,7 +93,7 @@ public class BookUpdateServlet extends HttpServlet {
 
             for (Book book : bookList) {
                 out.println("<tr>");
-                out.println("<td>" + book.getId() + "</td>");
+                out.println("<td><a href=book-detail?id=" + book.getId() + ">" + book.getId() + "</a></td>");
                 out.println("<td>" + book.getName() + "</td>");
                 out.println("<td>" + book.getAuthor() + "</td>");
                 out.println("<td>" + book.getPrice() + "</td>");

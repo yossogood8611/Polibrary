@@ -31,20 +31,30 @@ public class BookDetailServlet extends HttpServlet {
 
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter out = resp.getWriter();
-        // 책 정보를 테이블로 출력
+
         out.println("<html>");
         out.println("<head>");
         out.println("<title>책 정보</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<table>");
-        out.println("<tr><td>책 이름:</td><td>" + findBook.getName() + "</td></tr>");
-        out.println("<tr><td>작가:</td><td>" + findBook.getAuthor() + "</td></tr>");
-        out.println("<tr><td>가격:</td><td>" + findBook.getPrice() + "</td></tr>");
-        out.println("<tr><td>수량:</td><td>" + findBook.getAmount() + "</td></tr>");
-        out.println("<tr><td>장르:</td><td>" + findBook.getGenre() + "</td></tr>");
-        out.println("<tr><td>출판사:</td><td>" + findBook.getPublisher() + "</td></tr>");
-        out.println("</table>");
+        out.println("<h1>책 정보</h1>");
+        out.println("<form action=/book-update-ok method=post>");
+        out.println("<label for=id>책 id:</label>");
+        out.println("<input type=text id=id name=id value=" + findBook.getId() + "><br><br>");
+        out.println("<label for=name>책 이름:</label>");
+        out.println("<input type=text id=name name=name value=" + findBook.getName() + "><br><br>");
+        out.println("<label for=author>작가:</label>");
+        out.println("<input type=text id=author name=author value=" + findBook.getAuthor() + "><br><br>");
+        out.println("<label for=price>가격:</label>");
+        out.println("<input type=text id=price name=price value=" + findBook.getPrice() + "><br><br>");
+        out.println("<label for=amount>수량:</label>");
+        out.println("<input type=text id=amount name=amount value=" + findBook.getAmount() + "><br><br>");
+        out.println("<label for=genre>장르:</label>");
+        out.println("<input type=text id=genre name=genre value=" + findBook.getGenre() + "><br><br>");
+        out.println("<label for=publisher>출판사:</label>");
+        out.println("<input type=text id=publisher name=publisher value=" + findBook.getPublisher() + "><br><br>");
+        out.println("<button type=submit>업데이트</button>");
+        out.println("</form>");
         out.println("</body>");
         out.println("</html>");
 
