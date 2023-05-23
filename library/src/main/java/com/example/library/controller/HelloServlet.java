@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.controller;
 
 import com.example.library.domain.Book;
 import com.example.library.repository.BookRepository;

@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.controller;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
