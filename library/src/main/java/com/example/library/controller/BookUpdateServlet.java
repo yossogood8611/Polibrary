@@ -23,11 +23,35 @@ public class BookUpdateServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String mode = request.getParameter("mode");
+        String name = request.getParameter("search1");
+        String author = request.getParameter("search2");
+        String order = request.getParameter("order");
+
+        ArrayList<Book> bookList = null;
+        try {
+            if (name != null && !name.equals("") && author != null && !author.equals("")) {
+                bookList = bookRepository.selectByBookNameAndAuthor(name, author);
+            } else if (name != null && !name.equals("")) {
+                bookList = bookRepository.selectByBookName(name);
+            } else if (author != null && !author.equals("")) {
+                bookList = bookRepository.selectByAuthor(author);
+            } else {
+                //bookList = bookRepository.selectList(null); // Book 목록 가져오기
+                if ("asc".equalsIgnoreCase(order)) {
+                    bookList = bookRepository.selectList("ASC"); // Book 목록 가져오기 (오름차순)
+                } else if ("desc".equalsIgnoreCase(order)) {
+                    bookList = bookRepository.selectList("DESC"); // Book 목록 가져오기 (내림차순)
+                } else {
+                    bookList = bookRepository.selectList(null); // Book 목록 가져오기 (기본 정렬)
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
 
         try {
-            ArrayList<Book> bookList = bookRepository.selectList(null); // Book 목록 가져오기
-
             // Book 데이터를 테이블로 출력하는 HTML 코드 작성
             out.println("<html>");
             out.println("<head>");
@@ -91,6 +115,20 @@ public class BookUpdateServlet extends HttpServlet {
 
 
             out.println("<h1>도서 정보 수정</h1>");
+
+            out.println("<div class='row'>");
+            out.println("<div>");
+
+            out.println("<form action=book-update method=GET>");
+            out.println("<input type=hidden name=mode value=1>");
+            out.println("<input type=text name=search1 placeholder='책 이름'>");
+            out.println("<input type=text name=search2 placeholder=저자>");
+            out.println("<input type=submit value=검색>");
+            out.println("</form>");
+            out.println("</div>");
+
+            out.println("</div>");
+
             out.println("<table>");
             out.println("<tr>");
             out.println("<th>ID</th>");
@@ -120,7 +158,7 @@ public class BookUpdateServlet extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
 
-        } catch (SQLException | ServletException e) {
+        } catch (ServletException e) {
             e.printStackTrace();
         }
 
